@@ -1,0 +1,41 @@
+/*Tag selectors*/
+
+
+h1 {
+  color: red;
+  font-size: 45px;
+}
+
+
+body {
+  background-color: #F9E4C8;
+}
+
+
+img:hover {
+  background-color: gold;
+}
+
+
+/*Class selectors*/
+
+.bacon {
+  background-color: pink;
+}
+
+.bagel {
+  background-color: white;
+}
+.croissant {
+  background-color: #D57E7E;
+}
+
+.circular {
+  border-radius: 100%;
+}
+
+/*ID selectors*/
+
+#heading {
+  color: #D83A56;
+}
