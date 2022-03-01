@@ -117,13 +117,13 @@ p {
 }
 
 /* Testimonials */
-/* #testimonials {
-  /* text-align: center; */
+#testimonials {
+text-align: center;
 background-color: #ef8172;
 color: #fff;
 }
 
-*/ .testimonial-text {
+.testimonial-text {
   font-size: 2.5rem;
   line-height: 1.5;
 }
