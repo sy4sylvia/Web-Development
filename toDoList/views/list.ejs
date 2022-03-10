@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>To Do List</title>
-  </head>
-  <body>
 
-    <!-- % tag for js code -->
+<head>
+  <meta charset="utf-8">
+  <title>To Do List</title>
+</head>
 
-    <% if (dayType === "Saturday" || dayType === "Sunday") { %>
-      <h1 style = "color: purple"> <%= dayType %> ToDo List</h1>
-    <% } else { %>
-      <h1 style = "color: grey"><%= dayType %> List</h1>
+<body>
+
+  <!-- % tag for js code -->
+  <h1> <%= dayType%> </h1>
+
+  <p>And yes you're working...</p>
+
+  <ul>
+    <% for (var i = 0; i < newListItems.length; i++) { %>
+      <li> <%= newListItems[i] %> </li>
     <% } %>
-    <p>And yes you're working...</p>
 
-  </body>
+
+  </ul>
+
+  <form class="" action="/" method="post">
+    <input type="text" name="newItem">
+
+    <button type="submit" name="submit">Add</button>
+  </form>
+
+</body>
+
 </html>
