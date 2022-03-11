@@ -16,7 +16,7 @@ app.get("/",function(req, res) {
     day: "numeric",
     month: "long"
   }
-  var day = today.toLocaleString("en-US", options);
+  let day = today.toLocaleString("en-US", options);
   res.render("list", {
     listTitle: day,
     newListItems: items
@@ -30,6 +30,9 @@ app.get("/work", function(req, res) { //work route for the work to do list
   });
 });
 
+app.get("/about", function(req, res) {
+  res.render("about"); //takes no parameters
+})
 
 app.post("/", function(req, res) {
   if (req.body.list === "Work") { //mainly that after adding an item, doesn't redirect to  home page
