@@ -64,3 +64,8 @@ Bakery.find(function(err, bakeries){  //array called bakeries
     bakeries.forEach(b => console.log(b.name)); //log all results
   }
 });
+
+Bakery.updateOne({_id: "62431e40fe69d43a882533a7"}, {name: "Chocolate Cookie"}, function(err){
+  if (err) console.log(err);
+  else console.log("Successfully updated!");
+});
