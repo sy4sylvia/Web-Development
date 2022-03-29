@@ -2,8 +2,15 @@ const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/bakeryDB', {useNewUrlParser: true});
 const bakerySchema = new mongoose.Schema({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, "Please check for the name entry"]
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10 //validation -> fatal error
+  },
   review: String
 });
 // const Bakery = mongoose.model("Bakery", bakerySchema);
@@ -52,5 +59,8 @@ const cookie = new Bakery({
 
 Bakery.find(function(err, bakeries){  //array called bakeries
   if (err) console.log(err);
-  else bakeries.forEach(b => console.log(b.name)); //log all results
+  else {
+    mongoose.connection.close();
+    bakeries.forEach(b => console.log(b.name)); //log all results
+  }
 });
