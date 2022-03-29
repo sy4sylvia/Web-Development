@@ -22,17 +22,17 @@ const bakerySchema = new mongoose.Schema({
 // bakery.save();
 
 // mongoose.connect('mongodb://localhost:27017/personDB', {useNewUrlParser: true});
-// const personSchema = new mongoose.Schema({
-//   name: String,
-//   age: Number
-// });
-//
-// const Person = mongoose.model("Person", personSchema);
-// const person = new Person({
-//   name: "John",
-//   age: 37
-// });
-// person.save();
+const personSchema = new mongoose.Schema({
+  name: String,
+  age: Number
+});
+
+const Person = mongoose.model("Person", personSchema);
+const person = new Person({
+  name: "John",
+  age: 37
+});
+person.save();
 
 
 const Bakery = mongoose.model("Bakery", bakerySchema);
@@ -65,7 +65,12 @@ Bakery.find(function(err, bakeries){  //array called bakeries
   }
 });
 
-Bakery.updateOne({_id: "62431e40fe69d43a882533a7"}, {name: "Chocolate Cookie"}, function(err){
+// Bakery.updateOne({_id: "62431e40fe69d43a882533a7"}, {name: "Chocolate Cookie"}, function(err){
+//   if (err) console.log(err);
+//   else console.log("Successfully updated!");
+// });
+
+Bakery.deleteOne({_id: "62431e37ffef5a683c9900d9"}, function(err){
   if (err) console.log(err);
-  else console.log("Successfully updated!");
+  else console.log("Successfully deleted duplicate!");
 });
