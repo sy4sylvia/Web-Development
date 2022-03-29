@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/bakeryDB', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017', {useNewUrlParser: true});
 const bakerySchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,15 +24,16 @@ const bakerySchema = new mongoose.Schema({
 // mongoose.connect('mongodb://localhost:27017/personDB', {useNewUrlParser: true});
 const personSchema = new mongoose.Schema({
   name: String,
-  age: Number
+  age: Number,
+  favBakery: [bakerySchema] //embedded
 });
 
 const Person = mongoose.model("Person", personSchema);
-const person = new Person({
-  name: "John",
-  age: 37
-});
-person.save();
+// const person = new Person({
+//   name: "John",
+//   age: 37
+// });
+// person.save();
 
 
 const Bakery = mongoose.model("Bakery", bakerySchema);
@@ -56,12 +57,45 @@ const cookie = new Bakery({
 //   if (err) console.log(err);
 //   else console.log("Success!");
 // });
+const brioche = new Bakery({
+  name: "Brioche",
+  rating: 8,
+  review: "Never tried though",
+});
+// brioche.save();
+
+// const Person = mongoose.model("Person", personSchema);
+// const person = new Person({
+//   name: "Amy",
+//   age: 7,
+//   favBakery: brioche
+// });
+// person.save();
+
+// Person.updateOne({name: "John"}, {$set : {favBakery: pretzel}}, function(err) {
+//     if (err) console.log(err);
+//     else console.log("Successfully updated John's favBakery!");
+// })
+
+Bakery.findOne({name: "Pretzel"}, function(err, bakery) {
+  if (err) console.log("What the fuck");
+  else {
+    Person.updateOne({name: "John"}, {favBakery: bakery}, function(err) {
+        if (err) console.log(err);
+        else {
+          mongoose.connection.close();
+          console.log("Successfully updated John's favBakery!");
+        }
+    });
+  }
+});
 
 Bakery.find(function(err, bakeries){  //array called bakeries
   if (err) console.log(err);
   else {
-    mongoose.connection.close();
+    // mongoose.connection.close();
     bakeries.forEach(b => console.log(b.name)); //log all results
+    // people.forEach(p => console.log(p));
   }
 });
 
@@ -70,7 +104,9 @@ Bakery.find(function(err, bakeries){  //array called bakeries
 //   else console.log("Successfully updated!");
 // });
 
-Bakery.deleteOne({_id: "62431e37ffef5a683c9900d9"}, function(err){
+Bakery.deleteMany({name: "Bread"}, function(err){
   if (err) console.log(err);
-  else console.log("Successfully deleted duplicate!");
+  else console.log("Successfully deleted all duplicates that previously existed!");
 });
+
+//establish relationship between schemas
