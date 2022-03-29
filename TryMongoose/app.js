@@ -45,7 +45,12 @@ const cookie = new Bakery({
   review: "Only fall for the soft ones",
 });
 
-Bakery.insertMany([pretzel, croissant, cookie], function(err) {
+// Bakery.insertMany([pretzel, croissant, cookie], function(err) {
+//   if (err) console.log(err);
+//   else console.log("Success!");
+// });
+
+Bakery.find(function(err, bakeries){  //array called bakeries
   if (err) console.log(err);
-  else console.log("Success!");
-})
+  else bakeries.forEach(b => console.log(b.name)); //log all results
+});
