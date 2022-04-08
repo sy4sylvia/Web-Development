@@ -10,11 +10,15 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 
 //create a new database
-mongoose.connect("mongodb://localhost:27017/toDoListDB",{useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/toDoListDB", {
+  useNewUrlParser: true
+});
 //create a new item schema
 const itemsSchema = new mongoose.Schema({
   name: {
@@ -42,35 +46,52 @@ const defaultItems = [item1, item2, item3];
 
 app.get("/", function(req, res) {
   const day = date.getDate();
-  Item.find({}, function (err, foundItems) {
+  Item.find({}, function(err, foundItems) {
     if (foundItems.length === 0) { //insert default only if empty
       Item.insertMany(defaultItems, function(err) {
         if (err) console.log(err);
         else console.log("Success!");
       });
       res.redirect("/");
-    } else res.render("list", {listTitle: day, newListItems: foundItems});
+    } else res.render("list", {
+      listTitle: day,
+      newListItems: foundItems
+    });
   });
 });
 
-app.post("/", function(req, res){
+app.post("/", function(req, res) {
 
-  const item = req.body.newItem;
+  const itemName = req.body.newItem;
+  //create a new document
+  const curItem = new Item({
+    name: itemName
+  });
+  curItem.save(); //mongoose shortcut
+  res.redirect("/");
 
-  if (req.body.list === "Work") {
-    workItems.push(item);
-    res.redirect("/work");
-  } else {
-    items.push(item);
-    res.redirect("/");
-  }
 });
 
-app.get("/work", function(req,res){
-  res.render("list", {listTitle: "Work List", newListItems: workItems});
+app.post("/delete", function(req, res) {
+  const checkedId = req.body.checkbox;
+  //then remove the checked item from database
+  Item.findByIdAndRemove(checkedId, function(err) {
+    if (err) console.log(err);
+    else {
+      console.log("Successfully deleted!");
+      res.redirect("/");
+    }
+  });
+})
+
+app.get("/work", function(req, res) {
+  res.render("list", {
+    listTitle: "Work List",
+    newListItems: workItems
+  });
 });
 
-app.get("/about", function(req, res){
+app.get("/about", function(req, res) {
   res.render("about");
 });
 

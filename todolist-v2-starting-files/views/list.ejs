@@ -1,22 +1,27 @@
 <%- include("header") -%>
 
-  <div class="box" id="heading">
-    <h1> <%= listTitle %> </h1>
-  </div>
+<div class="box" id="heading">
+  <h1> <%= listTitle %> </h1>
+</div>
 
-  <div class="box">
-    <% newListItems.forEach(function(newLItem) { %>
+<div class="box">
+  <% newListItems.forEach(function(newLItem) { %>
+
+    <!-- need a form and a post route -->
+    <form class="" action="/delete" method="post">
       <div class="item">
-        <input type="checkbox">
-        <p><%=  newLItem.name  %></p>
+        <input type="checkbox" name = "checkbox" value= "<%= newLItem._id %>"  onChange = "this.form.submit()">
+        <p><%= newLItem.name %></p>
       </div>
-    <% }) %>
+    </form>
+
+  <% }) %>
 
 
-      <form class="item" action="/" method="post">
-        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-        <button type="submit" name="list">+</button>
-      </form>
-  </div>
+  <form class="item" action="/" method="post">
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+    <button type="submit" name="list">+</button>
+  </form>
+</div>
 
 <%- include("footer") -%>
