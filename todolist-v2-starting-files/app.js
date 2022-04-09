@@ -18,9 +18,7 @@ mongoose.connect("mongodb://localhost:27017/toDoListDB", {
   useNewUrlParser: true
 });
 //create a new item schema
-const itemsSchema = {
-  name: String
-};
+const itemsSchema = { name: String};
 
 //create a new mongoose model -> capitalized
 const Item = mongoose.model("Item", itemsSchema);
@@ -38,7 +36,7 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
-// a new document
+// another new document
 const listSchema = {
   name: String,
   items: [itemsSchema]
@@ -79,7 +77,7 @@ app.get("/:customListName", function(req, res) {
       if (!foundList) {
         const list = new List({
           name: customListName,
-          items: defaultItems
+          items: defaultItems //reuse default items
         });
         list.save();
         res.redirect("/" + customListName);
