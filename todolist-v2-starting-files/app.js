@@ -25,6 +25,7 @@ mongoose.connect("mongodb+srv://sy4sylvia:200018Gsy@cluster0.jdjbg.mongodb.net/t
 // mongoose.connect("mongodb://localhost:27017/toDoListDB", {
 //   useNewUrlParser: true
 // });
+
 //create a new item schema
 const itemsSchema = { name: String};
 
