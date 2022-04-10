@@ -14,9 +14,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 //create a new database
-mongoose.connect("mongodb://localhost:27017/toDoListDB", {
+//mongoDB atlas
+mongoose.connect("mongodb+srv://sy4sylvia:200018Gsy@cluster0.jdjbg.mongodb.net/toDoListDB", {
   useNewUrlParser: true
 });
+
+//in the terminal
+//mongosh "mongodb+srv://cluster0.jdjbg.mongodb.net/toDoListDB" --apiVersion 1 --username sy4sylvia
+
+// mongoose.connect("mongodb://localhost:27017/toDoListDB", {
+//   useNewUrlParser: true
+// });
 //create a new item schema
 const itemsSchema = { name: String};
 
@@ -147,7 +155,11 @@ app.get("/about", function(req, res) {
   res.render("about");
 });
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+app.listen(port, function() {
+  console.log("Server started.");
 });
