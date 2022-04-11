@@ -15,7 +15,7 @@ app.use(express.static("public"));
 
 //create a new database
 //mongoDB atlas
-mongoose.connect("mongodb+srv://sy4sylvia:200018Gsy@cluster0.jdjbg.mongodb.net/toDoListDB", {
+mongoose.connect("mongodb+srv://sy4sylvia:test123@cluster0.jdjbg.mongodb.net/toDoListDB", {
   useNewUrlParser: true
 });
 
